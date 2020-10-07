@@ -1,0 +1,58 @@
+{% extends 'basic.html' %}
+
+{% block title %}博客主页{% endblock %}
+
+{% block head %}
+{% if LOGIN %}
+{% include 'head_in.html' %}
+{% else %}
+{% include 'head_out.html' %}
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Block 博客</h1>
+            <span class="subheading">简约而不简单的博客网站</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for i in alls %}
+        <div class="post-preview">
+          <a href="/detail/{{ i.nid }}">
+            <h2 class="post-title">
+              {{ i.bk_title }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{ i.bk_describe }}
+            </h3>
+          </a>
+          <p class="post-meta">由
+            <a href="#">{{ i.bk_author }}</a>
+            发表于 {{ i.bk_time }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">点了也没有用噢&rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

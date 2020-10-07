@@ -1,0 +1,58 @@
+{% extends 'basic.html' %}
+
+{% block title %}个人信息{% endblock %}
+
+{% block head %}
+{% if LOGIN %}
+{% include 'head_in.html' %}
+{% else %}
+{% include 'head_out.html' %}
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/static/img/about-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>个人信息</h1>
+            <span class="subheading">As your wish</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <h3>用户名</h3>
+        <p>{{ YOU.user }}</p>
+        {% if YOU.aut == 1 %}
+        <h3>你是管理员用户</h3>
+        <p><a>管理员页面</a></p>
+        {% endif %}
+        <h3>昵称</h3>
+        <p>{{ YOU.name }}</p>
+        <h3>邮箱</h3>
+        <p>{{ YOU.email }}</p>
+        <h3>ID</h3>
+        <p>{{ YOU.nid }}</p>
+        <h3>注册时间</h3>
+        <p>{{ YOU.time }}</p>
+        <h3>最近登录</h3>
+        {% for i in ALLS %}
+        <p>{{ i.tk_time }}</p>
+        {% endfor %}
+        <h4><a href="{% url 'changepwd' %}">更改密码</a></h4>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

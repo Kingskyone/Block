@@ -1,0 +1,43 @@
+{% extends 'basic.html' %}
+
+{% block title %}博客{% endblock %}
+
+{% block head %}
+{% if LOGIN %}
+{% include 'head_in.html' %}
+{% else %}
+{% include 'head_out.html' %}
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/static/img/about-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{ BK.bk_title }}</h1>
+            <h2 class="subheading">{{ BK.bk_describe }}</h2>
+            <span class="meta">由
+              <a href="#">{{ BK.bk_author }}</a>
+              发表于 {{ BK.bk_time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>{{ BK.bk_text|linebreaksbr }}</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

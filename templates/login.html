@@ -1,0 +1,156 @@
+{% extends 'basic.html' %}
+
+{% block title %}登录{% endblock %}
+
+{% block head %}
+{% include 'head_out.html' %}
+{% endblock %}
+
+
+{% block body %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('/static/img/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>用户登录</h1>
+            <span class="subheading">欢迎您</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>登录享受更美好的世界！</p>
+        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+        <form action="{% url 'loginS' %}" method="post" >
+          {% csrf_token %}
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>用户名</label>
+              <input type="text" class="form-control" placeholder="用户名" name="name" id="name" required data-validation-required-message="请输入你的账号。">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>密码</label>
+              <input type="password" class="form-control" placeholder="密码" id="pwd" name="pwd" required data-validation-required-message="请输入密码。">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10">
+              <i class="fa fa-eye" onclick="showhide()" id="eye"></i>
+            </div>
+            <div class="col-md-8" id="capital" style="display:none;color:rgb(255, 0, 0);padding:2px 0 2px 95px;position:absolute;">
+              大写锁定已开启
+            </div>
+            <div class="col-md-2">
+              <a href="{% url 'returnpwd' %}">找回密码</a>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" >登录</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block script %}
+  {% if USER_WRONG %}
+  <script>
+    alert('用户不存在！');
+</script>
+  {% endif %}
+  {% if PWD_WRONG %}
+  <script>
+    alert('密码错误！');
+</script>
+  {% endif %}
+<script type="text/javascript">
+var eye = document.getElementById("eye");
+var pwd = document.getElementById("pwd");
+function showhide(){
+          if (pwd.type == "password") {
+              pwd.type = "text";
+                  eye.className='fa fa-eye-slash'
+          }else {
+              pwd.type = "password";
+              eye.className='fa fa-eye'
+          }
+  }
+</script>
+<script type="text/javascript">
+  var inputPWD = document.getElementById('pwd');
+  inputPWD.onfocus = function () {
+      isCapsLock();
+  }
+  /* 检测输入框的大小写是否开启 */
+  function isCapsLock() {
+      var inputPWD = document.getElementById('pwd');
+      var capital = false;
+      var capitalTip = {
+          elem: document.getElementById('capital'),
+          toggle: function (s) {
+              var sy = this.elem.style;
+              var d = sy.display;
+              if (s) {
+                  sy.display = s;
+              }
+              else {
+                  sy.display = d == 'none' ? '' : 'none';
+              }
+          }
+      }
+      var detectCapsLock = function (event) {
+          if (capital) {
+              return
+          }
+          ;
+          var e = event || window.event;
+          var keyCode = e.keyCode || e.which;
+          var isShift = e.shiftKey || (keyCode == 16 ) || false;
+          if (((keyCode >= 65 && keyCode <= 90 ) && !isShift) || ((keyCode >= 97 && keyCode <= 122 ) && isShift)) {
+              capitalTip.toggle('block');
+              capital = true
+          }
+          else {
+              capitalTip.toggle('none');
+          }
+      }
+      //判断是否是IE浏览器(解决自带的和自写的重复出现问题)
+      function isIE() {
+          if (!!window.ActiveXObject || "ActiveXObject" in window) {
+              return true;
+          }
+          else {
+              return false;
+          }
+      }
+
+      //如果不是IE则进行手动提示
+      if (!isIE()) {
+          inputPWD.onkeypress = detectCapsLock;
+          inputPWD.onkeyup = function (event) {
+              var e = event || window.event;
+              if (e.keyCode == 20 && capital) {
+                  capitalTip.toggle();
+                  return false;
+              }
+          }
+      }
+  }
+</script>
+  {% endblock %}

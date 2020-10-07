@@ -1,0 +1,78 @@
+{% extends 'basic.html' %}
+
+{% block title %}发表博客{% endblock %}
+
+{% block head %}
+{% if LOGIN %}
+{% include 'head_in.html' %}
+{% else %}
+{% include 'head_out.html' %}
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('/static/img/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>发表博客</h1>
+            <span class="subheading">分享你的故事</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form action="{% url 'submitS' %}" method="post" >
+          {% csrf_token %}
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <label>博客标题</label>
+                  <input type="text" class="form-control" placeholder="博客标题" name="title" id="title" required data-validation-required-message="请输入博客标题。">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>博客描述</label>
+              <input type="text" class="form-control" placeholder="博客描述" name="describe" id="describe" required data-validation-required-message="请输入博客描述。">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>博客正文</label>
+              <textarea rows="10" class="form-control" placeholder="博客正文"  name="text" id="text" required data-validation-required-message="请输入博客正文。"></textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">发布</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+  {% if Error %}
+  <script>
+    alert('输入的数据有问题！请不要使用非法字符或表情！');
+</script>
+  {% endif %}
+  {% if PWD_WRONG %}
+  <script>
+    alert('密码不一致！');
+</script>
+  {% endif %}
+  {% endblock %}
