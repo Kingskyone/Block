@@ -25,6 +25,7 @@ urlpatterns = [
     path('loginS/', views.loginS, name="loginS"),
     path('signS/', views.signS, name="signS"),
     path('submitS/', views.submitS, name="submitS"),
+    path('talkS/', views.talkS, name="talkS"),
     path('logout/', views.logout, name="logout"),
     path('inf/', views.infpage, name="inf"),
     path('submit/', views.submitpage, name="submit"),

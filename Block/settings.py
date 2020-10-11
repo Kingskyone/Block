@@ -25,7 +25,7 @@ SECRET_KEY = '3)4k*v9cxp^j=w$#zm!kedcr96gnl^fa&d1@3@h%ppo*n%q^(1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kingskyone.cool']
 
 
 # Application definition

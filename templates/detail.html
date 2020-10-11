@@ -38,6 +38,43 @@
         <p>{{ BK.bk_text|linebreaksbr }}</p>
       </div>
     </div>
+    <hr/>
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+        <h4>评论：</h4>
+        {% for i in TK %}
+        <hr/>
+        <p >{{ i.tk_text|linebreaksbr }}</p>
+        <p class="text-right">由{{ i.tk_author }}发表于  {{ i.tk_time }}</p>
+        {% endfor %}
+        <hr/>
+        {% if LOGIN %}
+        <p class="text-right"><button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#myModal">发表评论</button></p>
+        {% endif %}
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <form action="{% url 'talkS' %}" method="post" >
+                {% csrf_token %}
+                <input type="text"  name="title" id="title" value='{{ BK.nid }}' style="display:none">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">发表你的评论</h4>
+              </div>
+              <div class="modal-body">
+                
+                <textarea rows="10" class="form-control" placeholder="评论"  name="text" id="text" required data-validation-required-message="请输入评论"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

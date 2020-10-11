@@ -44,9 +44,14 @@ def detailpage(request, bk_id ='0'):
     except:
         return redirect('/')
     BK = Bloks.objects.filter(nid=bk_id).first()
+    TK = Talk.objects.filter(tk_bk=bk_id)
+    TKS = []
+    for i in TK:
+        TKS.append(i)
     if not BK:
         return redirect('/')
-    return render(request,"detail.html",{'LOGIN':LOGIN,"YOU":YOU,'BK':BK })
+    print(TKS)
+    return render(request,"detail.html",{'LOGIN':LOGIN,"YOU":YOU,'BK':BK,'TK':TKS })
 
 def submitpage(request):
     is_login = request.COOKIES.get('user')
@@ -135,6 +140,20 @@ def signS(request):
         obj = redirect('/login/')
         # obj.set_cookie('user',user)
         return obj
+
+def talkS(request):
+    is_login = request.COOKIES.get('user')
+    if is_login:
+        YOU = Users.objects.filter(user=is_login).first()
+    else:
+        return redirect('/')
+    if request.method == "POST":
+        num = request.POST.get("title")
+        text = request.POST.get("text")
+        tm = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
+        data = Talk(tk_bk=num,tk_author=YOU.name,tk_text=text,tk_time=tm)
+        data.save()
+        return redirect('/detail/{}'.format(str(num)))
 
 def changepwd(request):
     is_login = request.COOKIES.get('user')
