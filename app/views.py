@@ -169,7 +169,6 @@ def returnpwdS(request):
         Yo.save()
         return render(request,"return_pwd.html",{'NotOK':False,'OK':True})
 
-
 def logout(request):
     obj = redirect('/')
     obj.set_cookie('user','')
