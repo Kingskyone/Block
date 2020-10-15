@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from app.models import *
+from django.core.paginator import Paginator
 import re
 import datetime
 
@@ -50,7 +51,6 @@ def detailpage(request, bk_id ='0'):
         TKS.append(i)
     if not BK:
         return redirect('/')
-    print(TKS)
     return render(request,"detail.html",{'LOGIN':LOGIN,"YOU":YOU,'BK':BK,'TK':TKS })
 
 def submitpage(request):
@@ -192,3 +192,83 @@ def logout(request):
     obj = redirect('/')
     obj.set_cookie('user','')
     return obj
+
+def admin(request):
+    user = Users.objects.all()
+    a1 = []
+    for i in user:
+        a1.append(i)
+
+    block = Bloks.objects.all()
+    a2 = []
+    for i in block:
+        a2.append(i)
+
+    talk = Talk.objects.all()
+    a3 = []
+    for i in talk:
+        a3.append(i)
+
+    logintime = LoginTime.objects.all()
+    a4 = []
+    for i in logintime:
+        a4.append(i)
+
+    a = [len(a1), len(a2), len(a3), len(a4)]
+
+    return render(request, "admin.html", {'a': a})
+
+def admin_message_show(request):
+    page = request.GET.get('page', 1)
+    ALL = Bloks.objects.all()
+    alls = []
+    for i in ALL:
+        alls.append(i)
+    paginator = Paginator(alls, 20)
+    page_data = paginator.page(page)
+    return render(request, "admin_message_show.html", {'page_data': page_data})
+
+def delete_message(request):
+    message_id = request.GET.get('message_id')
+    Bloks.objects.filter(nid=message_id).delete()
+    return redirect('/admin_message_show/')
+
+def admin_talk_show(request):
+    page = request.GET.get('page', 1)
+    ALL = Talk.objects.all()
+    alls = []
+    for i in ALL:
+        alls.append(i)
+    paginator = Paginator(alls, 20)
+    page_data = paginator.page(page)
+    return render(request, "admin_talk_show.html", {'page_data': page_data})
+
+def delete_talk(request):
+    talk_id = request.GET.get('talk_id')
+    Talk.objects.filter(nid=talk_id).delete()
+    return redirect('/admin_talk_show/')
+
+def admin_user_show(request):
+    page = request.GET.get('page', 1)
+    ALL = Users.objects.all()
+    alls = []
+    for i in ALL:
+        alls.append(i)
+    paginator = Paginator(alls, 20)
+    page_data = paginator.page(page)
+    return render(request, "admin_user_show.html", {'page_data': page_data})
+
+def delete_user(request):
+    user_id = request.GET.get('user_id')
+    Users.objects.filter(nid=user_id).delete()
+    return redirect('/admin_user_show/')
+
+def change_aut(request):
+    user_id = request.GET.get('user_id')
+    a = Users.objects.get(nid=user_id)
+    if a.aut == 0:
+        a.aut = 1
+    else:
+        a.aut = 0
+    a.save()
+    return redirect('/admin_user_show/')

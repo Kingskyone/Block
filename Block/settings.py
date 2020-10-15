@@ -26,6 +26,7 @@ SECRET_KEY = '3)4k*v9cxp^j=w$#zm!kedcr96gnl^fa&d1@3@h%ppo*n%q^(1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['kingskyone.cool']
+#ALLOWED_HOSTS = []
 
 
 # Application definition

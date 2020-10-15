@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>博客后台管理系统</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Themesbrand" name="author" />
+        <link rel="shortcut icon" href="/static/assets/images/favicon.ico">
+
+        <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/static/assets/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="/static/assets/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body style="padding-top: 60px;">
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            
+
+            <!-- MENU Start -->
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+
+                            <li class="has-submenu">
+                                <a href="{% url 'admin' %}"><i class="mdi mdi-home"></i>主页</a>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{% url 'admin_message_show' %}"><i class="mdi mdi-home"></i>博客管理</a>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{% url 'admin_talk_show' %}"><i class="mdi mdi-home"></i>评论管理</a>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="{% url 'admin_user_show' %}"><i class="mdi mdi-home"></i>用户管理</a>
+                            </li>
+
+                        </ul>
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+        <!-- page wrapper start -->
+        <div class="wrapper">
+            <div class="page-title-box">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4 class="page-title">Block 博客</h4>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active">欢迎来到 Block博客 后台管理系统</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- end container-fluid -->
+            
+            </div>
+            <!-- page-title-box -->
+
+            {% block blank %}
+
+            {% endblock %}}
+
+        </div>
+        <!-- page wrapper end -->
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        2020 © Block <span class="d-none d-sm-inline-block"> - Created by <a href="http://kingskyone.cool/" title="">辛显楠</a></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+
+        <!-- jQuery  -->
+        <script src="/static/assets/js/jquery.min.js"></script>
+        <s src="/static/assets/js/bootstrap.bundle.min.js"></script>
+        <s src="/static/assets/js/jquery.slimscroll.js"></s>
+        <s src="/static/assets/js/waves.min.js"></s>
+        <style type="text/css">.wrapper {
+            padding-top: 0px;
+        }</style>
+
+
+        <!-- App js -->
+        <script src="/static/assets/js/app.js"></script>
+
+    </body>
+
+</html>

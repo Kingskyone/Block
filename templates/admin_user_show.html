@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block blank %}
+
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            {% for i in page_data.object_list %}
+            <div class="col-lg-6">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h4 class="font-20">{{ i.name }}</h4>
+                        <p class="font-18">注册时间：{{ i.time }}</p>
+                        <div class="media m-b-30">
+                            
+                            <div class="media-body">
+                                {% if i.aut == 1 %}
+                                <h5 class="font-16">权限：管理员</h5>
+                                {% else %}
+                                <h5 class="font-16">权限：用户</h5>
+                                {% endif %}
+                                <br>账号：{{ i.user }}</br>
+                                <br>密码：{{ i.pwd }}</br>
+                                <br>邮箱：{{ i.email }}</br>
+                            </div>
+                        </div>
+                        <div class="button-items">
+                                <a href="/delete_user/?user_id={{ i.nid }}" class="btn btn-primary waves-effect waves-light" onClick="return confirm('确定删除?');">删除</a>
+                            {% if i.aut == 1 %}
+                                <a href="/change_aut/?user_id={{ i.nid }}" class="btn btn-dark waves-effect waves-light" onClick="return confirm('确定降低权限?');">降低权限</a>
+                            {% else %}
+                                <a href="/change_aut/?user_id={{ i.nid }}" class="btn btn-link waves-effect" onClick="return confirm('确定提升权限?');">提升权限</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                {% if page_data.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="{% url 'admin_user_show' %}?page={{ page_data.previous_page_number }}">«</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="javascript:;">«</a></li>
+                                {% endif %}
+                                {% for pg in page_data.paginator.page_range %}
+                                    {% if page_data.number == pg %}
+                                        <li class="page-item active""><a class="page-link" href="{% url 'admin_user_show' %}?page={{ pg }}">{{ pg }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="{% url 'admin_user_show' %}?page={{ pg }}">{{ pg }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_data.has_next %}
+                                    <li class="page-item"><a class="page-link" href="{% url 'admin_user_show' %}?page={{ page_data.next_page_number }}">»</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="javascript:;">»</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end page content-->
+
+{% endblock %}}
